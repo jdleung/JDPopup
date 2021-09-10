@@ -26,5 +26,4 @@ public class JDPopupConfig: NSObject {
     public var shadowAlpha: CGFloat = 0.6
     public var exitBtnTintColor = UIColor.lightGray
     public var exitBtnImage = UIImage(named: "exit", in: Bundle(for: JDPopup.self), compatibleWith: nil)
-    
 }
