@@ -18,39 +18,58 @@ pod 'JDPopup'
 
 ## Usage
 
-### Customize
+### Customization
 
-```swift
-customWidth
-customHeight
-arrowWidth
-arrowHeight
-barTitleColor
-contentBgColor
-borderColor
-borderWidth
-backgoundColor
-cornerRadius
-barHeight
-tapScreenClose
-lrSpacing
-duration
-globalShadow
-shadowAlpha
-exitBtnTintColor
-exitBtnImage
-```
+
+| config |
+| :------ |
+| customWidth |
+| customHeight |
+| arrowWidth |
+| arrowHeight |
+| barTitleColor |
+| contentBgColor |
+| borderColor |
+| borderWidth |
+| backgoundColor |
+| cornerRadius |
+| barHeight |
+| tapScreenClose |
+| lrSpacing |
+| duration |
+| globalShadow |
+| shadowAlpha |
+| exitBtnTintColor |
+| exitBtnImage |
 
 ### Create an instance of JDPopup
 
+#### Sender UIButton
+
 ```swift
-let popView = JDPopup(sender: sender, barTitle: "A Popup Image View", contentViewAdapter: { contentView in
-            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height)
-            imageView.image = UIImage(named: "tree")
-            contentView.addSubview(imageView)
-        })
-popView.config.customHeight = 300.0
-popView.present()
+func showPopup(_ sender: UIButton) {
+    let popView = JDPopup(sender: sender, barTitle: "A Popup Image View", contentViewAdapter: { contentView in
+                let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height)
+                imageView.image = UIImage(named: "tree")
+                contentView.addSubview(imageView)
+            })
+    popView.config.customHeight = 300.0
+    popView.present()
+}
+```
+
+#### Sender UIBarButtonItem
+
+```swift
+func showPopup(_ sender: UIBarButtonItem, event: UIEvent) {
+    let popView = JDPopup(event: event, barTitle: "A Popup Image View", contentViewAdapter: { contentView in
+                let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height)
+                imageView.image = UIImage(named: "tree")
+                contentView.addSubview(imageView)
+            })
+    popView.config.customHeight = 300.0
+    popView.present()
+}
 ```
 
 
