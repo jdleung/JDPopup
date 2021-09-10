@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="UOa-Tf-zxs">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="FOM-yT-TkR">
+            <objects>
+                <navigationController id="UOa-Tf-zxs" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="qit-9z-4Q9">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="gKX-4B-ufH" kind="relationship" relationship="rootViewController" id="G9q-Qn-WZg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9EQ-yJ-cHY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-86" y="94"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="cbr-CB-XXD">
+            <objects>
+                <viewController id="gKX-4B-ufH" customClass="ViewController" customModule="JDPopupDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lMG-pK-XRh">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kFy-Oe-W1e">
+                                <rect key="frame" x="98.5" y="205" width="60" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="awJ-FD-683"/>
+                                    <constraint firstAttribute="width" constant="60" id="k2d-3e-ODL"/>
+                                </constraints>
+                                <state key="normal" title="Show 1"/>
+                                <connections>
+                                    <action selector="showFullHeightPopView:" destination="gKX-4B-ufH" eventType="touchUpInside" id="r5T-KZ-jik"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hRR-5H-KQc">
+                                <rect key="frame" x="255.5" y="205" width="60" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="GhR-vy-6Kg"/>
+                                    <constraint firstAttribute="width" constant="60" id="wDr-ZE-1Ji"/>
+                                </constraints>
+                                <state key="normal" title="Show 2"/>
+                                <connections>
+                                    <action selector="showLimitHeightPopView:" destination="gKX-4B-ufH" eventType="touchUpInside" id="bhg-Nu-gV9"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bOB-8r-ZnS">
+                                <rect key="frame" x="98.5" y="633" width="60" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="Wcc-r3-kEN"/>
+                                    <constraint firstAttribute="height" constant="30" id="ora-1a-0SL"/>
+                                </constraints>
+                                <state key="normal" title="Show 3"/>
+                                <connections>
+                                    <action selector="showPopupViewWithSegment:event:" destination="gKX-4B-ufH" eventType="touchUpInside" id="OGl-iO-hAP"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="orH-no-VsQ">
+                                <rect key="frame" x="255.5" y="633" width="60" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="Zo7-OK-oco"/>
+                                    <constraint firstAttribute="height" constant="30" id="kC1-A9-A0t"/>
+                                </constraints>
+                                <state key="normal" title="Show 4"/>
+                                <connections>
+                                    <action selector="showPopupCollectionView:" destination="gKX-4B-ufH" eventType="touchUpInside" id="dqi-Co-znZ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="1jH-rc-yyC"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="orH-no-VsQ" firstAttribute="centerX" secondItem="lMG-pK-XRh" secondAttribute="centerX" constant="78.5" id="48a-6h-ihu"/>
+                            <constraint firstItem="hRR-5H-KQc" firstAttribute="centerX" secondItem="lMG-pK-XRh" secondAttribute="centerX" constant="78.5" id="IaO-4H-b0Z"/>
+                            <constraint firstItem="1jH-rc-yyC" firstAttribute="bottom" secondItem="orH-no-VsQ" secondAttribute="bottom" constant="199" id="icE-Tp-tzr"/>
+                            <constraint firstItem="bOB-8r-ZnS" firstAttribute="centerX" secondItem="lMG-pK-XRh" secondAttribute="centerX" constant="-78.5" id="k4M-G8-f5Q"/>
+                            <constraint firstItem="kFy-Oe-W1e" firstAttribute="top" secondItem="1jH-rc-yyC" secondAttribute="top" constant="117" id="lcW-V6-sRZ"/>
+                            <constraint firstItem="1jH-rc-yyC" firstAttribute="bottom" secondItem="bOB-8r-ZnS" secondAttribute="bottom" constant="199" id="pMP-ED-C1x"/>
+                            <constraint firstItem="hRR-5H-KQc" firstAttribute="top" secondItem="1jH-rc-yyC" secondAttribute="top" constant="117" id="qeo-Rb-qYw"/>
+                            <constraint firstItem="kFy-Oe-W1e" firstAttribute="centerX" secondItem="lMG-pK-XRh" secondAttribute="centerX" constant="-78.5" id="waW-oS-euD"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="pq8-Do-peq">
+                        <barButtonItem key="rightBarButtonItem" title="Show" id="ml4-Hh-Qet">
+                            <connections>
+                                <action selector="showPopupViewWithSegment:event:" destination="gKX-4B-ufH" id="7dg-9H-IYi"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4g2-m7-QfI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="667" y="94"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
