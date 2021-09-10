@@ -60,6 +60,7 @@ class ViewController: UIViewController {
             contentView.addSubview(self.treeImageView)
         })
         popView.config.borderWidth = 0
+        popView.config.backgoundColor = .white
         popView.present()
     }
     
@@ -86,12 +87,15 @@ class ViewController: UIViewController {
             seg.frame = CGRect(x: 15, y: 5, width: 200, height: 30)
             seg.addTarget(self, action: #selector(self.segmentChanged(_:)), for: .valueChanged)
             seg.selectedSegmentIndex = 0
+            seg.backgroundColor = UIColor.yellow.withAlphaComponent(0.6)
             barView.addSubview(seg)
             
         }, contentViewAdapter: { contentView in
             self.sampleTextView.frame = CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height)
             contentView.addSubview(self.sampleTextView)
         })
+        jdPopView.config.backgoundColor = #colorLiteral(red: 0, green: 0.5898008943, blue: 1, alpha: 1)
+        jdPopView.config.exitBtnTintColor = .white
         jdPopView.present()
     }
     
