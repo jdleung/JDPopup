@@ -2,10 +2,10 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "JDPopup"
-  spec.version      = "0.0.1"
+  spec.version      = "0.0.2"
   spec.summary      = "Showing your contents in a popup view"
   spec.description  = <<-DESC
-  [JDPopup](https://github.com/jdleung/JDPopup) is a popup container for `iOS`. It shows a popup view with an arrow that indicates the sender point. You can put any type of UIView into it, UILabel, UITableView, UICollecitonView, UITextView... etc. All you need to do is to put them into its API, JDPopup automatically determines showing up on the maximum available height, or you can custom the width and height.
+  JDPopup is a popup container for iOS. It shows a popup view with an arrow that indicates the sender point. You can put any type of UIView into it, UILabel, UITableView, UICollecitonView, UITextView... etc. All you need to do is to put them into its API, JDPopup automatically determines showing up on the maximum available height, or you can custom the width and height.
                    DESC
 
   spec.homepage     = "https://github.com/jdleung/JDPopup"
@@ -20,7 +20,7 @@ Pod::Spec.new do |spec|
   spec.swift_version = "5.0"
 
   spec.source       = { :git => "https://github.com/jdleung/JDPopup.git", :tag => "#{spec.version}" }
-  spec.source_files  = "JDPopup/*.swift"
+  spec.source_files = "JDPopup/*.{swift,png}"
   spec.requires_arc = true
  
 
