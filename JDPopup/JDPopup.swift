@@ -51,8 +51,8 @@ public class JDPopup: UIView {
     fileprivate var contentView: UIView!
     fileprivate var arrowPoint: CGPoint?
     fileprivate var arrowDirection: JDPopupArrowDirection = .up
-    fileprivate var barViewAdapter: ViewAdapter? //((_ barView: UIView) -> Void)?
-    fileprivate var contentViewAdapter: ViewAdapter? // ((_ contentView: UIView) -> Void)?
+    fileprivate var barViewAdapter: ViewAdapter?
+    fileprivate var contentViewAdapter: ViewAdapter?
     
     fileprivate lazy var tapGesture : UITapGestureRecognizer = {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(onBackgroudViewTapped(gesture:)))
@@ -137,7 +137,7 @@ public class JDPopup: UIView {
         var px = self.config.lrSpacing
         var py = self.arrowPoint!.y
         var pw = UIScreen.main.bounds.width - self.config.lrSpacing * 2
-        var ph = UIScreen.main.bounds.height - self.arrowPoint!.y - safeAreaInset.bottom
+        var ph = UIScreen.main.bounds.height - self.arrowPoint!.y - safeAreaInset.bottom - config.tbSpacing
     
         if self.arrowDirection == .down {
             py = safeAreaInset.top
@@ -237,10 +237,9 @@ public class JDPopup: UIView {
     }
     
     fileprivate func showUp() {
-        let bgColor = UIColor.lightGray.withAlphaComponent(0.4)
         self.popView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
         UIView.animate(withDuration: self.config.duration, animations: {
-            self.backgroundColor = bgColor
+            self.backgroundColor = UIColor.lightGray.withAlphaComponent(self.config.shadowAlpha)
             self.popView.alpha = 1
             self.popView.transform = CGAffineTransform(scaleX: 1, y: 1)
         })
@@ -301,15 +300,23 @@ public class JDPopup: UIView {
         let path: UIBezierPath = UIBezierPath()
         path.lineJoinStyle = .round
         path.lineCapStyle = .round
+
+        var exceedLeft = false
+        var exceedRight = false
+        if arrowPoint.x >= pw - config.arrowWidth {
+            exceedRight = true
+        } else if arrowPoint.x <= config.arrowWidth {
+            exceedLeft = true
+        }
         
         if self.arrowDirection == .up {
-            if arrowPoint.x >= pw - config.arrowWidth/2 {
+            if exceedRight {
                 path.move(to: CGPoint(x: pw - config.arrowWidth * 3, y: config.arrowHeight))
                 path.addLine(to: CGPoint(x: arrowPoint.x, y: 0))
                 path.addLine(to: CGPoint(x: pw, y: config.arrowHeight))
                 
             } else {
-                if arrowPoint.x < config.arrowWidth/2 {
+                if exceedLeft {
                     path.move(to: CGPoint(x: 0, y: config.arrowHeight))
                     path.addLine(to: CGPoint(x: arrowPoint.x, y: 0))
                     path.addLine(to: CGPoint(x: config.arrowWidth * 3, y: config.arrowHeight))
@@ -342,7 +349,7 @@ public class JDPopup: UIView {
                         endAngle: .pi,
                         clockwise: true)
             
-            if arrowPoint.x < config.arrowWidth/2  {
+            if exceedLeft {
                 path.addLine(to: CGPoint(x: 0, y: config.arrowWidth * 3))
                 
             } else {
@@ -356,13 +363,13 @@ public class JDPopup: UIView {
             path.close()
 
         } else {
-            if arrowPoint.x >= pw - config.arrowWidth/2 {
+            if exceedRight {
                 path.move(to: CGPoint(x: pw - config.arrowWidth * 3, y: ph - config.arrowHeight))
                 path.addLine(to: CGPoint(x: arrowPoint.x, y: ph))
                 path.addLine(to: CGPoint(x: pw, y: ph - config.arrowHeight))
                 
             } else {
-                if arrowPoint.x < config.arrowWidth/2 {
+                if exceedLeft {
                     path.move(to: CGPoint(x: 0, y: ph - config.arrowHeight))
                     path.addLine(to: CGPoint(x: arrowPoint.x, y: ph))
                     path.addLine(to: CGPoint(x: config.arrowWidth * 3, y: ph - config.arrowHeight))
@@ -395,7 +402,7 @@ public class JDPopup: UIView {
                         endAngle: .pi,
                         clockwise: false)
             
-            if arrowPoint.x < config.arrowWidth/2  {
+            if exceedLeft  {
                 path.addLine(to: CGPoint(x: 0, y: ph - config.arrowHeight*3))
                 
             } else {
