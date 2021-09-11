@@ -20,8 +20,9 @@ Pod::Spec.new do |spec|
   spec.swift_version = "5.0"
 
   spec.source       = { :git => "https://github.com/jdleung/JDPopup.git", :tag => "#{spec.version}" }
-  spec.source_files = "JDPopup/*.{swift,png}"
+  spec.source_files = "JDPopup/*.swift"
   spec.requires_arc = true
+  spec.resource = "JDPopup/exit.png"
  
 
 end
