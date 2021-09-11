@@ -49,16 +49,20 @@ class ViewController: UIViewController {
 
     @IBAction
     func showFullHeightPopView(_ sender: UIButton) {
-        let popView = JDPopup(sender: sender, barViewAdapter: { barView in
-            let titleLabel = UILabel(frame: CGRect(x: 15, y: 5, width: barView.frame.width - 35, height: 30))
-            titleLabel.text = "Full available size"
-            titleLabel.font = UIFont.boldSystemFont(ofSize: 17)
-            barView.addSubview(titleLabel)
-            
-        }, contentViewAdapter: { contentView in
-            self.treeImageView.frame = CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height)
-            contentView.addSubview(self.treeImageView)
-        })
+        let titleLabel = UILabel()
+        titleLabel.text = "Full available size"
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 17)
+        
+        let popView = JDPopup(
+            sender: sender,
+            barViewAdapter: { barView in
+                titleLabel.frame = CGRect(x: 15, y: 5, width: barView.frame.width - 35, height: 30)
+                barView.addSubview(titleLabel)                
+            },
+            contentViewAdapter: { contentView in
+                self.treeImageView.frame = CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height)
+                contentView.addSubview(self.treeImageView)
+            })
         popView.config.borderWidth = 0
         popView.config.backgoundColor = .white
         popView.present()
@@ -67,10 +71,13 @@ class ViewController: UIViewController {
     
     @IBAction
     func showLimitHeightPopView(_ sender: UIButton) {
-        let popView = JDPopup(sender: sender, barTitle: "Custom width and height", contentViewAdapter: { contentView in
-            self.treeImageView.frame = CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height)
-            contentView.addSubview(self.treeImageView)
-        })
+        let popView = JDPopup(
+            sender: sender,
+            barTitle: "Custom width and height",
+            contentViewAdapter: { contentView in
+                self.treeImageView.frame = CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height)
+                contentView.addSubview(self.treeImageView)
+            })
         popView.config.borderWidth = 0.0
         popView.config.customHeight = 300.0
         popView.config.customWidth = 300.0
@@ -82,18 +89,21 @@ class ViewController: UIViewController {
     @IBAction
     func showPopupViewWithSegment(_ sender: UIBarButtonItem, event: UIEvent) {
         
-        jdPopView = JDPopup(event: event, barViewAdapter: { barView in
-            let seg = UISegmentedControl(items: ["TextView", "TableView"])
-            seg.frame = CGRect(x: 15, y: 5, width: 200, height: 30)
-            seg.addTarget(self, action: #selector(self.segmentChanged(_:)), for: .valueChanged)
-            seg.selectedSegmentIndex = 0
-            seg.backgroundColor = UIColor.yellow.withAlphaComponent(0.6)
-            barView.addSubview(seg)
-            
-        }, contentViewAdapter: { contentView in
-            self.sampleTextView.frame = CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height)
-            contentView.addSubview(self.sampleTextView)
-        })
+        let seg = UISegmentedControl(items: ["TextView", "TableView"])
+        seg.frame = CGRect(x: 15, y: 5, width: 200, height: 30)
+        seg.addTarget(self, action: #selector(self.segmentChanged(_:)), for: .valueChanged)
+        seg.selectedSegmentIndex = 0
+        seg.backgroundColor = UIColor.yellow.withAlphaComponent(0.6)
+        
+        jdPopView = JDPopup(
+            event: event,
+            barViewAdapter: { barView in
+                barView.addSubview(seg)
+            },
+            contentViewAdapter: { contentView in
+                self.sampleTextView.frame = CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height)
+                contentView.addSubview(self.sampleTextView)
+            })
         jdPopView.config.backgoundColor = #colorLiteral(red: 0, green: 0.5898008943, blue: 1, alpha: 1)
         jdPopView.config.exitBtnTintColor = .white
         jdPopView.present()
@@ -110,12 +120,14 @@ class ViewController: UIViewController {
             
         } else {
             
+            let tv = UITableView()
+            tv.register(UITableViewCell.self, forCellReuseIdentifier: "TableCell")
+            tv.delegate = self
+            tv.dataSource = self
+            
             jdPopView.toggleContentView({ contentView in
-                let tt = UITableView(frame: CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height))
-                tt.register(UITableViewCell.self, forCellReuseIdentifier: "TableCell")
-                tt.delegate = self
-                tt.dataSource = self
-                contentView.addSubview(tt)
+                tv.frame = CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height)
+                contentView.addSubview(tv)
             })
         }
     }
@@ -123,18 +135,24 @@ class ViewController: UIViewController {
     
     @IBAction
     func showPopupCollectionView(_ sender: UIButton) {
-        let popView = JDPopup(sender: sender, barTitle: "CollectionView", contentViewAdapter: { contentView in
-            let layout = UICollectionViewFlowLayout()
-            layout.scrollDirection = .vertical
-            layout.itemSize = CGSize(width: 70, height: 70)
-            let tt = UICollectionView(frame: CGRect(x: 20, y: 10, width: contentView.frame.width-40, height: contentView.frame.height-20), collectionViewLayout: layout)
-            tt.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "CollectionCell")
-            tt.backgroundColor = .white
-            tt.delegate = self
-            tt.dataSource = self
-            tt.showsVerticalScrollIndicator = false
-            contentView.addSubview(tt)
-        })
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.itemSize = CGSize(width: 70, height: 70)
+        
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "CollectionCell")
+        cv.backgroundColor = .white
+        cv.delegate = self
+        cv.dataSource = self
+        cv.showsVerticalScrollIndicator = false
+        
+        let popView = JDPopup(
+            sender: sender,
+            barTitle: "CollectionView",
+            contentViewAdapter: { contentView in
+                cv.frame = CGRect(x: 20, y: 10, width: contentView.frame.width-40, height: contentView.frame.height-20)
+                contentView.addSubview(cv)
+            })
         popView.config.customHeight = 330
         popView.config.backgoundColor = #colorLiteral(red: 1, green: 0.4932718873, blue: 0.4739984274, alpha: 1)
         popView.config.barTitleColor = .white
