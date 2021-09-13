@@ -3,7 +3,7 @@
 
 ## SreenShots
 
-<img src="Screenshots/ss_1.gif" align="left" width="300" />
+<img src="Screenshots/ss_1.gif" width="300" />
 
 ## Installation
 
