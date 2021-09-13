@@ -64,7 +64,7 @@ class ViewController: UIViewController {
                 contentView.addSubview(self.treeImageView)
             })
         popView.config.borderWidth = 0
-        popView.config.backgoundColor = .white
+        popView.config.bgColor = .white
         popView.present()
     }
     
@@ -81,7 +81,7 @@ class ViewController: UIViewController {
         popView.config.borderWidth = 0.0
         popView.config.customHeight = 300.0
         popView.config.customWidth = 300.0
-        popView.config.backgoundColor = .white
+        popView.config.bgColor = .white
         popView.present()
     }
     
@@ -104,7 +104,7 @@ class ViewController: UIViewController {
                 self.sampleTextView.frame = CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height)
                 contentView.addSubview(self.sampleTextView)
             })
-        jdPopView.config.backgoundColor = #colorLiteral(red: 0, green: 0.5898008943, blue: 1, alpha: 1)
+        jdPopView.config.bgColor = #colorLiteral(red: 0, green: 0.5898008943, blue: 1, alpha: 1)
         jdPopView.config.exitBtnTintColor = .white
         jdPopView.present()
     }
@@ -154,7 +154,7 @@ class ViewController: UIViewController {
                 contentView.addSubview(cv)
             })
         popView.config.customHeight = 330
-        popView.config.backgoundColor = #colorLiteral(red: 1, green: 0.4932718873, blue: 0.4739984274, alpha: 1)
+        popView.config.bgColor = #colorLiteral(red: 1, green: 0.4932718873, blue: 0.4739984274, alpha: 1)
         popView.config.barTitleColor = .white
         popView.config.exitBtnTintColor = .white
         popView.present()

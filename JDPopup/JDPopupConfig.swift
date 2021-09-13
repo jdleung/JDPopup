@@ -25,7 +25,8 @@ public class JDPopupConfig: NSObject {
     
     public var borderWidth: CGFloat = 1.0
     
-    public var backgoundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0)
+    /// pop view background color
+    public var bgColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0)
     
     public var cornerRadius: CGFloat = 6.0
     
@@ -43,7 +44,7 @@ public class JDPopupConfig: NSObject {
     /// animation duration
     public var duration: Double = 0.2
     
-    /// background color alpha
+    /// mask layer background color alpha
     public var shadowAlpha: CGFloat = 0.3
     
     /// exit button

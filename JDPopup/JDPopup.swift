@@ -49,6 +49,7 @@ public class JDPopup: UIView {
     fileprivate var popView: UIView!
     fileprivate var barTitle = ""
     fileprivate var contentView: UIView!
+    fileprivate var barArrowHeight: CGFloat = 0.0
     fileprivate var arrowPoint: CGPoint?
     fileprivate var arrowDirection: JDPopupArrowDirection = .up
     fileprivate var barViewAdapter: ViewAdapter?
@@ -120,7 +121,7 @@ public class JDPopup: UIView {
         if config.tapScreenClose {
             self.addGestureRecognizer(self.tapGesture)
         }
-        
+        self.barArrowHeight = config.arrowHeight + config.barHeight + config.borderWidth/2
         self.setPopView()
         self.setContentView()
         self.setBarView()
@@ -171,19 +172,20 @@ public class JDPopup: UIView {
     }
     
     fileprivate func setContentView() {
-        var contentY: CGFloat = config.arrowHeight + config.barHeight + config.borderWidth/2
+        var contentY = barArrowHeight
         var contentH: CGFloat = self.popView.frame.height - contentY - config.borderWidth/2
         if self.arrowDirection == .down {
             contentY = config.borderWidth/2
-            contentH = self.popView.frame.height - contentY - config.arrowHeight - config.barHeight - config.borderWidth
+            contentH = self.popView.frame.height - contentY - barArrowHeight
         }
         
         contentView = UIView(frame: CGRect(x: config.borderWidth/2, y: contentY, width: self.popView.frame.width - config.borderWidth, height: contentH))
         contentView.backgroundColor = config.contentBgColor
         self.popView.addSubview(contentView)
               
-        let maskLayer = CAShapeLayer()
         let corners: UIRectCorner = self.arrowDirection == .up ? [.bottomLeft, .bottomRight] : [.topLeft, .topRight]
+        
+        let maskLayer = CAShapeLayer()
         maskLayer.path = UIBezierPath(roundedRect: contentView.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: config.cornerRadius, height: config.cornerRadius)).cgPath
         contentView.layer.mask = maskLayer
         
@@ -195,7 +197,7 @@ public class JDPopup: UIView {
     fileprivate func setBarView() {
         var y: CGFloat = config.arrowHeight + config.borderWidth/2
         if self.arrowDirection == .down {
-            y = self.popView.frame.height - config.arrowHeight - config.barHeight - config.borderWidth/2
+            y = self.popView.frame.height - barArrowHeight
         }
         let barView = UIView(frame: CGRect(x: config.borderWidth/2, y: y, width: self.popView.frame.width - config.borderWidth, height: config.barHeight))
         barView.backgroundColor = .clear
@@ -229,7 +231,7 @@ public class JDPopup: UIView {
         self.popView.transform = CGAffineTransform(scaleX: 1, y: 1)
         UIView.animate(withDuration: self.config.duration, animations: {
             self.backgroundColor = .clear
-            self.popView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+            self.popView.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
         }, completion: {_ in
             self.popView.removeFromSuperview()
             self.removeFromSuperview()
@@ -245,7 +247,7 @@ public class JDPopup: UIView {
         })
     }
     
-    public func toggleContentView(_ contentAdapter: ((_ contentView: UIView) -> Void)?) {
+    public func toggleContentView(_ contentAdapter: ViewAdapter?) {
         guard let cva = contentAdapter else {
             return
         }
@@ -262,7 +264,6 @@ public class JDPopup: UIView {
         
         var newPoint = CGPoint(x: popView.bounds.size.width * anchorPoint.x,
                                y: popView.bounds.size.height * anchorPoint.y)
-
 
         var oldPoint = CGPoint(x: popView.bounds.size.width * popView.layer.anchorPoint.x,
                                y: popView.bounds.size.height * popView.layer.anchorPoint.y)
@@ -283,23 +284,19 @@ public class JDPopup: UIView {
     
     fileprivate func drawBackgroundLayerWithArrowPoint(_ arrowPoint: CGPoint) {
         let bgLayer = CAShapeLayer()
-        bgLayer.path = getBackgroundPath(arrowPoint: arrowPoint).cgPath
-        bgLayer.fillColor = config.backgoundColor.cgColor
+        bgLayer.path = getBackgroundPath(arrowPoint).cgPath
+        bgLayer.fillColor = config.bgColor.cgColor
         bgLayer.strokeColor = config.borderColor.cgColor
         bgLayer.lineWidth = config.borderWidth
         bgLayer.cornerRadius = config.cornerRadius
         self.popView.layer.insertSublayer(bgLayer, at: 0)
     }
     
-    func getBackgroundPath(arrowPoint: CGPoint) -> UIBezierPath {
+    func getBackgroundPath(_ arrowPoint: CGPoint) -> UIBezierPath {
         
         let pw = self.popView.frame.size.width
         let ph = self.popView.frame.size.height
         let radius: CGFloat = config.cornerRadius
-        
-        let path: UIBezierPath = UIBezierPath()
-        path.lineJoinStyle = .round
-        path.lineCapStyle = .round
 
         var exceedLeft = false
         var exceedRight = false
@@ -309,9 +306,13 @@ public class JDPopup: UIView {
             exceedLeft = true
         }
         
+        let path: UIBezierPath = UIBezierPath()
+        path.lineJoinStyle = .round
+        path.lineCapStyle = .round
+        
         if self.arrowDirection == .up {
             if exceedRight {
-                path.move(to: CGPoint(x: pw - config.arrowWidth * 3, y: config.arrowHeight))
+                path.move(to: CGPoint(x: pw - config.arrowWidth * 2, y: config.arrowHeight))
                 path.addLine(to: CGPoint(x: arrowPoint.x, y: 0))
                 path.addLine(to: CGPoint(x: pw, y: config.arrowHeight))
                 
@@ -319,7 +320,7 @@ public class JDPopup: UIView {
                 if exceedLeft {
                     path.move(to: CGPoint(x: 0, y: config.arrowHeight))
                     path.addLine(to: CGPoint(x: arrowPoint.x, y: 0))
-                    path.addLine(to: CGPoint(x: config.arrowWidth * 3, y: config.arrowHeight))
+                    path.addLine(to: CGPoint(x: config.arrowWidth * 2, y: config.arrowHeight))
                     path.addLine(to: CGPoint(x: pw - radius, y: config.arrowHeight))
                     
                 } else {
@@ -350,7 +351,7 @@ public class JDPopup: UIView {
                         clockwise: true)
             
             if exceedLeft {
-                path.addLine(to: CGPoint(x: 0, y: config.arrowWidth * 3))
+                path.addLine(to: CGPoint(x: 0, y: config.arrowWidth * 2))
                 
             } else {
                 path.addLine(to: CGPoint(x: 0, y: config.arrowHeight + radius))
@@ -364,7 +365,7 @@ public class JDPopup: UIView {
 
         } else {
             if exceedRight {
-                path.move(to: CGPoint(x: pw - config.arrowWidth * 3, y: ph - config.arrowHeight))
+                path.move(to: CGPoint(x: pw - config.arrowWidth * 2, y: ph - config.arrowHeight))
                 path.addLine(to: CGPoint(x: arrowPoint.x, y: ph))
                 path.addLine(to: CGPoint(x: pw, y: ph - config.arrowHeight))
                 
@@ -372,7 +373,7 @@ public class JDPopup: UIView {
                 if exceedLeft {
                     path.move(to: CGPoint(x: 0, y: ph - config.arrowHeight))
                     path.addLine(to: CGPoint(x: arrowPoint.x, y: ph))
-                    path.addLine(to: CGPoint(x: config.arrowWidth * 3, y: ph - config.arrowHeight))
+                    path.addLine(to: CGPoint(x: config.arrowWidth * 2, y: ph - config.arrowHeight))
                     path.addLine(to: CGPoint(x: pw - radius, y: ph - config.arrowHeight))
                     
                 } else {
@@ -403,7 +404,7 @@ public class JDPopup: UIView {
                         clockwise: false)
             
             if exceedLeft  {
-                path.addLine(to: CGPoint(x: 0, y: ph - config.arrowHeight*3))
+                path.addLine(to: CGPoint(x: 0, y: ph - config.arrowHeight*2))
                 
             } else {
                 path.addLine(to: CGPoint(x: 0, y: ph - config.arrowHeight - radius))
