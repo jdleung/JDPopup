@@ -1,11 +1,9 @@
 # JDPopup
-[JDPopup](https://github.com/jdleung/JDPopup) is a popup container for `iOS`. It shows a popup view with an arrow that indicates the sender point. You can put any type of UIView into it, UILabel, UITableView, UICollecitonView, UITextView... etc. All you need to do is to put them into its API, JDPopup automatically determines showing up on the maximum available height, or you can custom the width and height.
+[JDPopup](https://github.com/jdleung/JDPopup) is a light weight  popup container for `iOS`. It shows a popup view with an arrow that indicates the sender's position.
 
 ## SreenShots
 
-<img src="Screenshots/sc_3.png" width="300" /> <img src="Screenshots/sc_2.png" width="300" /> 
-
-<img src="Screenshots/sc_1.png" width="300" /> <img src="Screenshots/sc_4.png" width="300" /> 
+<img src="Screenshots/ss_1.gif" align="left" width="300" />
 
 ## Installation
 
@@ -36,6 +34,7 @@ pod 'JDPopup'
 | barHeight |
 | tapScreenClose |
 | lrSpacing |
+| tbSpacing |
 | duration |
 | globalShadow |
 | shadowAlpha |
@@ -47,10 +46,12 @@ pod 'JDPopup'
 #### Sender UIButton
 
 ```swift
-func showPopup(_ sender: UIButton) {
+func showPopup(_ sender: UIButton) {  
+    let imageView = UIImageView()
+    imageView.image = UIImage(named: "tree")
+  
     let popView = JDPopup(sender: sender, barTitle: "A Popup Image View", contentViewAdapter: { contentView in
-                let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height)
-                imageView.image = UIImage(named: "tree")
+                imageView.frame = CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height)
                 contentView.addSubview(imageView)
             })
     popView.config.customHeight = 300.0
@@ -62,9 +63,11 @@ func showPopup(_ sender: UIButton) {
 
 ```swift
 func showPopup(_ sender: UIBarButtonItem, event: UIEvent) {
+    let imageView = UIImageView()
+    imageView.image = UIImage(named: "tree")
+  
     let popView = JDPopup(event: event, barTitle: "A Popup Image View", contentViewAdapter: { contentView in
-                let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height)
-                imageView.image = UIImage(named: "tree")
+                imageView.frame = CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height)
                 contentView.addSubview(imageView)
             })
     popView.config.customHeight = 300.0
