@@ -14,6 +14,7 @@ fileprivate enum JDPopupArrowDirection {
 }
 
 extension JDPopup: UIGestureRecognizerDelegate {
+    
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         guard let touchView = touch.view else {
             return true
@@ -39,12 +40,11 @@ extension JDPopup: UIGestureRecognizerDelegate {
 
 
 @objc
-public class JDPopup: UIView {
+public class JDPopup: UIViewController {
     
     public typealias ViewAdapter = (_ subview: UIView) -> Void
     
-    public var config = JDPopupConfig()
-    
+    fileprivate var config: JDPopupConfig!
     fileprivate var isPortrait = false
     fileprivate var popView: UIView!
     fileprivate var barTitle = ""
@@ -62,28 +62,40 @@ public class JDPopup: UIView {
     }()
     
     
-    convenience public init(sender: UIButton, barTitle: String = "", barViewAdapter: ViewAdapter? = nil, contentViewAdapter: ViewAdapter?) {
-        self.init(frame: UIScreen.main.bounds)
-
+    convenience public init(sender: UIButton, config: JDPopupConfig = JDPopupConfig(), barTitle: String = "", barViewAdapter: ViewAdapter? = nil, contentViewAdapter:  @escaping ViewAdapter) {
+        
+        self.init(nibName: nil, bundle: nil)
+        
+        self.config = config
+        
         let ap = CGPoint(x: sender.center.x - config.lrSpacing, y: sender.center.y)
         self.setDefault(ap, barTitle: barTitle, barViewAdapter: barViewAdapter, contentViewAdapter: contentViewAdapter)
     }
     
     
-    convenience public init(event: UIEvent, barTitle: String = "", barViewAdapter: ViewAdapter? = nil, contentViewAdapter: ViewAdapter?) {
-        self.init(frame: UIScreen.main.bounds)
+    convenience public init(event: UIEvent, config: JDPopupConfig = JDPopupConfig(), barTitle: String = "", barViewAdapter: ViewAdapter? = nil, contentViewAdapter:  @escaping ViewAdapter) {
+        
+        self.init(nibName: nil, bundle: nil)
+        
+        self.config = config
         
         guard let sender = event.allTouches?.first?.view!, let superView = sender.superview else {
             return
         }
-        let senderRect = superView.convert(sender.frame, to: self)
+        let senderRect = superView.convert(sender.frame, to: self.view)
         
         let ap = CGPoint(x: senderRect.origin.x + senderRect.width/2 - config.lrSpacing, y: senderRect.origin.y + senderRect.height/2)
         self.setDefault(ap, barTitle: barTitle, barViewAdapter: barViewAdapter, contentViewAdapter: contentViewAdapter)
     }
     
     
-    fileprivate func setDefault(_ ap: CGPoint, barTitle: String = "", barViewAdapter: ViewAdapter? = nil, contentViewAdapter: ViewAdapter?) {
+    fileprivate func setDefault(_ ap: CGPoint, barTitle: String = "", barViewAdapter: ViewAdapter? = nil, contentViewAdapter: @escaping ViewAdapter) {
+        
+        self.view.backgroundColor = .clear
+        self.modalPresentationCapturesStatusBarAppearance = true
+        self.modalPresentationStyle = .overFullScreen
+        self.modalTransitionStyle = .crossDissolve
+        
         self.arrowPoint = ap
         self.barTitle = barTitle
         self.barViewAdapter = barViewAdapter
@@ -98,35 +110,56 @@ public class JDPopup: UIView {
             self.arrowDirection = .up
         }
         
+        self.barArrowHeight = config.arrowHeight + config.barHeight + config.borderWidth/2
+        self.setPopView()
+        self.setContentView()
+        self.setBarView()
+        
+        if config.tapScreenClose {
+            self.view.addGestureRecognizer(self.tapGesture)
+        }
+        
         NotificationCenter.default.addObserver(self, selector:#selector(orientationChanged(_:)), name: UIDevice.orientationDidChangeNotification, object: nil)
+        
     }
     
     @objc
     fileprivate func orientationChanged(_ notification: NSNotification) {
         if isPortrait != UIApplication.shared.statusBarOrientation.isPortrait {
-            self.dismiss()
+            self.goDismiss()
         }
     }
         
     deinit {
+        barViewAdapter = nil
+        contentViewAdapter = nil
         NotificationCenter.default.removeObserver(self)
     }
     
-    public func present() {
-        
-        if self.arrowPoint == nil || self.contentViewAdapter == nil { return }
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
 
-        UIApplication.shared.keyWindow?.addSubview(self)
-        
-        if config.tapScreenClose {
-            self.addGestureRecognizer(self.tapGesture)
-        }
-        self.barArrowHeight = config.arrowHeight + config.barHeight + config.borderWidth/2
-        self.setPopView()
-        self.setContentView()
-        self.setBarView()
         self.showUp()
+    }
+    
+    private func showUp() {
+        if self.arrowPoint == nil || self.popView == nil {
+            self.dismiss(animated: false, completion: nil)
+            return
+        }
         
+        if self.modalPresentationStyle != .overFullScreen {
+            print("Error: Please set 'modalPresentationStyle = .overFullScreen' or leave it empty")
+            self.goDismiss()
+            return
+        }
+
+        self.popView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+        self.popView.isHidden = false
+        UIView.animate(withDuration: self.config.duration, animations: {
+            self.view.backgroundColor = self.config.shadowColor.withAlphaComponent(self.config.shadowAlpha)
+            self.popView.transform = CGAffineTransform(scaleX: 1, y: 1)
+        })        
     }
     
     fileprivate func setPopView() {
@@ -164,8 +197,9 @@ public class JDPopup: UIView {
             self.arrowPoint!.x -= px - config.lrSpacing
         }
         
-        popView = UIView(frame: CGRect(x: px, y: py, width: pw, height: ph))
-        self.addSubview(popView!)
+        self.popView = UIView(frame: CGRect(x: px, y: py, width: pw, height: ph))
+        self.popView.isHidden = true
+        self.view.addSubview(self.popView)
         
         self.drawBackgroundLayerWithArrowPoint(self.arrowPoint!)
         self.setAnchorPoint()
@@ -205,7 +239,7 @@ public class JDPopup: UIView {
         
         let xbtn = UIButton(frame: CGRect(x: barView.frame.width - 35, y: config.barHeight/2 - 15, width: 30, height: 30))
         xbtn.setImage(config.exitBtnImage?.withRenderingMode(.alwaysTemplate), for: .normal)
-        xbtn.addTarget(self, action: #selector(dismiss), for: .touchUpInside)
+        xbtn.addTarget(self, action: #selector(goDismiss), for: .touchUpInside)
         xbtn.tintColor = config.exitBtnTintColor
         barView.addSubview(xbtn)
         
@@ -223,27 +257,18 @@ public class JDPopup: UIView {
     
     @objc
     fileprivate func onBackgroudViewTapped(gesture : UIGestureRecognizer) {
-        self.dismiss()
+        self.goDismiss()
     }
     
     @objc
-    fileprivate func dismiss() {
-        self.popView.transform = CGAffineTransform(scaleX: 1, y: 1)
+    fileprivate func goDismiss() {
+
         UIView.animate(withDuration: self.config.duration, animations: {
-            self.backgroundColor = .clear
+            self.view.backgroundColor = .clear
             self.popView.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
         }, completion: {_ in
             self.popView.removeFromSuperview()
-            self.removeFromSuperview()
-        })
-    }
-    
-    fileprivate func showUp() {
-        self.popView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
-        UIView.animate(withDuration: self.config.duration, animations: {
-            self.backgroundColor = UIColor.lightGray.withAlphaComponent(self.config.shadowAlpha)
-            self.popView.alpha = 1
-            self.popView.transform = CGAffineTransform(scaleX: 1, y: 1)
+            self.dismiss(animated: false, completion: nil)
         })
     }
     

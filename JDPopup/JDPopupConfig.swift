@@ -44,8 +44,11 @@ public class JDPopupConfig: NSObject {
     /// animation duration
     public var duration: Double = 0.2
     
+    /// mask layer background color
+    public var shadowColor: UIColor = .black
+    
     /// mask layer background color alpha
-    public var shadowAlpha: CGFloat = 0.3
+    public var shadowAlpha: CGFloat = 0.2
     
     /// exit button
     public var exitBtnTintColor = UIColor.lightGray
