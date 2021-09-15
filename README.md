@@ -18,6 +18,14 @@ pod 'JDPopup'
 
 Add folder [JDPopup](https://github.com/jdleung/JDPopup/tree/main/JDPopup) into your project
 
+### Import
+
+If you install via CocoaPods, you only need to import one class:
+
+```
+import JDPopup
+```
+
 ## Usage
 
 ### Customization
@@ -52,7 +60,7 @@ Add folder [JDPopup](https://github.com/jdleung/JDPopup/tree/main/JDPopup) into 
 ```swift
 func showPopup(_ sender: UIButton) {  
     let imageView = UIImageView()
-    imageView.image = UIImage(named: "tree")
+    imageView.image = UIImage(named: "plant")
   
     let popView = JDPopup(sender: sender, barTitle: "A Popup Image View", contentViewAdapter: { contentView in
                 imageView.frame = CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height)
@@ -69,7 +77,7 @@ func showPopup(_ sender: UIButton) {
 ```swift
 func showPopup(_ sender: UIBarButtonItem, event: UIEvent) {
     let imageView = UIImageView()
-    imageView.image = UIImage(named: "tree")
+    imageView.image = UIImage(named: "plant")
   
     let popView = JDPopup(event: event, barTitle: "A Popup Image View", contentViewAdapter: { contentView in
                 imageView.frame = CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height)
