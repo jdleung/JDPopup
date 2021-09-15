@@ -43,8 +43,8 @@ extension JDPopup: UIGestureRecognizerDelegate {
 public class JDPopup: UIViewController {
     
     public typealias ViewAdapter = (_ subview: UIView) -> Void
+    public var config = JDPopupConfig()
     
-    fileprivate var config: JDPopupConfig!
     fileprivate var isPortrait = false
     fileprivate var popView: UIView!
     fileprivate var barTitle = ""
@@ -62,22 +62,18 @@ public class JDPopup: UIViewController {
     }()
     
     
-    convenience public init(sender: UIButton, config: JDPopupConfig = JDPopupConfig(), barTitle: String = "", barViewAdapter: ViewAdapter? = nil, contentViewAdapter:  @escaping ViewAdapter) {
+    convenience public init(sender: UIButton, barTitle: String = "", barViewAdapter: ViewAdapter? = nil, contentViewAdapter:  @escaping ViewAdapter) {
         
         self.init(nibName: nil, bundle: nil)
-        
-        self.config = config
-        
+                
         let ap = CGPoint(x: sender.center.x - config.lrSpacing, y: sender.center.y)
         self.setDefault(ap, barTitle: barTitle, barViewAdapter: barViewAdapter, contentViewAdapter: contentViewAdapter)
     }
     
     
-    convenience public init(event: UIEvent, config: JDPopupConfig = JDPopupConfig(), barTitle: String = "", barViewAdapter: ViewAdapter? = nil, contentViewAdapter:  @escaping ViewAdapter) {
+    convenience public init(event: UIEvent, barTitle: String = "", barViewAdapter: ViewAdapter? = nil, contentViewAdapter:  @escaping ViewAdapter) {
         
         self.init(nibName: nil, bundle: nil)
-        
-        self.config = config
         
         guard let sender = event.allTouches?.first?.view!, let superView = sender.superview else {
             return
@@ -110,11 +106,6 @@ public class JDPopup: UIViewController {
             self.arrowDirection = .up
         }
         
-        self.barArrowHeight = config.arrowHeight + config.barHeight + config.borderWidth/2
-        self.setPopView()
-        self.setContentView()
-        self.setBarView()
-        
         if config.tapScreenClose {
             self.view.addGestureRecognizer(self.tapGesture)
         }
@@ -131,6 +122,7 @@ public class JDPopup: UIViewController {
     }
         
     deinit {
+        popView = nil
         barViewAdapter = nil
         contentViewAdapter = nil
         NotificationCenter.default.removeObserver(self)
@@ -143,8 +135,8 @@ public class JDPopup: UIViewController {
     }
     
     private func showUp() {
-        if self.arrowPoint == nil || self.popView == nil {
-            self.dismiss(animated: false, completion: nil)
+        if self.arrowPoint == nil {
+            self.goDismiss()
             return
         }
         
@@ -152,6 +144,13 @@ public class JDPopup: UIViewController {
             print("Error: Please set 'modalPresentationStyle = .overFullScreen' or leave it empty")
             self.goDismiss()
             return
+        }
+        
+        if self.popView == nil {
+            self.barArrowHeight = config.arrowHeight + config.barHeight + config.borderWidth/2
+            self.setPopView()
+            self.setContentView()
+            self.setBarView()
         }
 
         self.popView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
@@ -262,7 +261,11 @@ public class JDPopup: UIViewController {
     
     @objc
     fileprivate func goDismiss() {
-
+        if self.popView == nil {
+            self.dismiss(animated: false, completion: nil)
+            return
+        }
+        
         UIView.animate(withDuration: self.config.duration, animations: {
             self.view.backgroundColor = .clear
             self.popView.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)

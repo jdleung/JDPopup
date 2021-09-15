@@ -53,13 +53,8 @@ class ViewController: UIViewController {
         titleLabel.text = "Full available size"
         titleLabel.font = UIFont.boldSystemFont(ofSize: 17)
         
-        let config = JDPopupConfig()
-        config.borderWidth = 0
-        config.bgColor = .white
-        
         let popView = JDPopup(
             sender: sender,
-            config: config,
             barViewAdapter: { barView in
                 titleLabel.frame = CGRect(x: 15, y: 5, width: barView.frame.width - 35, height: 30)
                 barView.addSubview(titleLabel)
@@ -68,26 +63,28 @@ class ViewController: UIViewController {
                 self.treeImageView.frame = CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height)
                 contentView.addSubview(self.treeImageView)
             })
+        
+        popView.config.borderWidth = 0
+        popView.config.bgColor = .white
         self.present(popView, animated: false, completion: nil)
     }
     
     
     @IBAction
     func showLimitHeightPopView(_ sender: UIButton) {
-        let config = JDPopupConfig()
-        config.borderWidth = 0.0
-        config.customHeight = 300.0
-        config.customWidth = 300.0
-        config.bgColor = .white
         
         let popView = JDPopup(
             sender: sender,
-            config: config,
             barTitle: "Custom width and height",
             contentViewAdapter: { contentView in
                 self.treeImageView.frame = CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height)
                 contentView.addSubview(self.treeImageView)
             })
+        
+        popView.config.borderWidth = 0.0
+        popView.config.customHeight = 300.0
+        popView.config.customWidth = 300.0
+        popView.config.bgColor = .white
         self.present(popView, animated: false, completion: nil)
     }
     
@@ -100,14 +97,9 @@ class ViewController: UIViewController {
         seg.addTarget(self, action: #selector(self.segmentChanged(_:)), for: .valueChanged)
         seg.selectedSegmentIndex = 0
         seg.backgroundColor = UIColor.yellow.withAlphaComponent(0.6)
-        
-        let config = JDPopupConfig()
-        config.bgColor = #colorLiteral(red: 0, green: 0.5898008943, blue: 1, alpha: 1)
-        config.exitBtnTintColor = .white
 
         jdPopView = JDPopup(
             event: event,
-            config: config,
             barViewAdapter: { barView in
                 barView.addSubview(seg)
             },
@@ -115,6 +107,9 @@ class ViewController: UIViewController {
                 self.sampleTextView.frame = CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height)
                 contentView.addSubview(self.sampleTextView)
             })
+        
+        jdPopView.config.bgColor = #colorLiteral(red: 0, green: 0.5898008943, blue: 1, alpha: 1)
+        jdPopView.config.exitBtnTintColor = .white
         self.present(jdPopView, animated: false, completion: nil)
     }
     
@@ -154,21 +149,19 @@ class ViewController: UIViewController {
         cv.delegate = self
         cv.dataSource = self
         cv.showsVerticalScrollIndicator = false
-        
-        let config = JDPopupConfig()
-        config.customHeight = 330
-        config.bgColor = #colorLiteral(red: 1, green: 0.4932718873, blue: 0.4739984274, alpha: 1)
-        config.barTitleColor = .white
-        config.exitBtnTintColor = .white
-        
+
         let popView = JDPopup(
             sender: sender,
-            config: config,
             barTitle: "CollectionView",
             contentViewAdapter: { contentView in
                 cv.frame = CGRect(x: 20, y: 10, width: contentView.frame.width-40, height: contentView.frame.height-20)
                 contentView.addSubview(cv)
             })
+        
+        popView.config.customHeight = 330
+        popView.config.bgColor = #colorLiteral(red: 1, green: 0.4932718873, blue: 0.4739984274, alpha: 1)
+        popView.config.barTitleColor = .white
+        popView.config.exitBtnTintColor = .white
         self.present(popView, animated: false, completion: nil)
     }
 }
