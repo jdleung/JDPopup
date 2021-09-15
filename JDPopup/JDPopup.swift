@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Foundation
 
 fileprivate enum JDPopupArrowDirection {
     case up
