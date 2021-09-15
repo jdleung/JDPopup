@@ -1,5 +1,5 @@
 # JDPopup
-[JDPopup](https://github.com/jdleung/JDPopup) is a light weight  popup container for `iOS`. It shows a popup view with an arrow that indicates the sender's position.
+[JDPopup](https://github.com/jdleung/JDPopup) is a light weight  popup container which shows a popup view with an arrow that indicates the sender's position.
 
 ## SreenShots
 
@@ -8,11 +8,15 @@
 ## Installation
 
 
-### CocoaPod:
+### CocoaPod
 
 ```ruby
 pod 'JDPopup'
 ```
+
+### Manually
+
+Add folder [JDPopup](https://github.com/jdleung/JDPopup/tree/main/JDPopup) into your project
 
 ## Usage
 
@@ -36,7 +40,7 @@ pod 'JDPopup'
 | lrSpacing |
 | tbSpacing |
 | duration |
-| globalShadow |
+| shadowColor |
 | shadowAlpha |
 | exitBtnTintColor |
 | exitBtnImage |
@@ -54,8 +58,9 @@ func showPopup(_ sender: UIButton) {
                 imageView.frame = CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height)
                 contentView.addSubview(imageView)
             })
+  
     popView.config.customHeight = 300.0
-    popView.present()
+    self.present(popView, animated: false, completion: nil)
 }
 ```
 
@@ -70,13 +75,16 @@ func showPopup(_ sender: UIBarButtonItem, event: UIEvent) {
                 imageView.frame = CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height)
                 contentView.addSubview(imageView)
             })
+  
     popView.config.customHeight = 300.0
-    popView.present()
+    self.present(popView, animated: false, completion: nil)
 }
 ```
 
+## Demo project photo
 
+ [Floral photo created by rawpixel.com - www.freepik.com](https://www.freepik.com/photos/floral)
 
 ## License
 
-JDPopup is available under the `MIT` license. See the `LICENSE` file for more info.
+[JDPopup](https://github.com/jdleung/JDPopup) is available under the `MIT` license. See the `LICENSE` file for more info.
