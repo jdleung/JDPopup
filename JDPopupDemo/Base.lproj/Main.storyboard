@@ -88,18 +88,18 @@
                         <viewLayoutGuide key="safeArea" id="1jH-rc-yyC"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="bOB-8r-ZnS" firstAttribute="leading" secondItem="1jH-rc-yyC" secondAttribute="leading" constant="50" id="Cga-jP-Rpj"/>
                             <constraint firstItem="JN0-lp-cHy" firstAttribute="leading" secondItem="1jH-rc-yyC" secondAttribute="leading" id="JRK-mU-Vzn"/>
                             <constraint firstAttribute="bottom" secondItem="JN0-lp-cHy" secondAttribute="bottom" id="ahO-yb-Sd3"/>
+                            <constraint firstItem="bOB-8r-ZnS" firstAttribute="centerX" secondItem="lMG-pK-XRh" secondAttribute="centerX" constant="-97" id="cHo-iC-6Jc"/>
                             <constraint firstItem="JN0-lp-cHy" firstAttribute="top" secondItem="lMG-pK-XRh" secondAttribute="top" id="fo4-5q-3ux"/>
                             <constraint firstItem="1jH-rc-yyC" firstAttribute="bottom" secondItem="orH-no-VsQ" secondAttribute="bottom" constant="123" id="icE-Tp-tzr"/>
-                            <constraint firstItem="1jH-rc-yyC" firstAttribute="trailing" secondItem="orH-no-VsQ" secondAttribute="trailing" constant="50" id="lLQ-Kb-tzD"/>
                             <constraint firstItem="kFy-Oe-W1e" firstAttribute="top" secondItem="1jH-rc-yyC" secondAttribute="top" constant="123" id="lcW-V6-sRZ"/>
                             <constraint firstItem="1jH-rc-yyC" firstAttribute="bottom" secondItem="bOB-8r-ZnS" secondAttribute="bottom" constant="123" id="pMP-ED-C1x"/>
+                            <constraint firstItem="kFy-Oe-W1e" firstAttribute="centerX" secondItem="lMG-pK-XRh" secondAttribute="centerX" constant="-97" id="qcS-k3-Ip7"/>
                             <constraint firstItem="hRR-5H-KQc" firstAttribute="top" secondItem="1jH-rc-yyC" secondAttribute="top" constant="123" id="qeo-Rb-qYw"/>
-                            <constraint firstItem="1jH-rc-yyC" firstAttribute="trailing" secondItem="hRR-5H-KQc" secondAttribute="trailing" constant="50" id="sjG-Ww-Npx"/>
-                            <constraint firstItem="kFy-Oe-W1e" firstAttribute="leading" secondItem="1jH-rc-yyC" secondAttribute="leading" constant="50" id="tQW-b5-meC"/>
+                            <constraint firstItem="orH-no-VsQ" firstAttribute="centerX" secondItem="lMG-pK-XRh" secondAttribute="centerX" constant="97" id="vVD-QZ-pRx"/>
                             <constraint firstItem="JN0-lp-cHy" firstAttribute="trailing" secondItem="1jH-rc-yyC" secondAttribute="trailing" id="yXE-Gx-mYr"/>
+                            <constraint firstItem="hRR-5H-KQc" firstAttribute="centerX" secondItem="lMG-pK-XRh" secondAttribute="centerX" constant="97" id="yai-n1-lRi"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="pq8-Do-peq">

@@ -6,12 +6,11 @@
 //
 
 import UIKit
-import JDPopup
 
 class ViewController: UIViewController {
 
     var jdPopView: JDPopup!
-    
+        
     lazy var sampleTextView: UITextView = {
         let txv = UITextView()
         txv.font = UIFont.systemFont(ofSize: 17)
@@ -21,11 +20,9 @@ class ViewController: UIViewController {
         return txv
     }()
     
-    // Tree photo created by wirestock - www.freepik.com
-    // https://www.freepik.com/photos/tree
-    lazy var treeImageView: UIImageView = {
+    lazy var plantImageView: UIImageView = {
         let img = UIImageView()
-        img.image = UIImage(named: "tree")
+        img.image = UIImage(named: "plant")
         return img
     }()
     
@@ -59,8 +56,8 @@ class ViewController: UIViewController {
                 barView.addSubview(titleLabel)
             },
             contentViewAdapter: { contentView in
-                self.treeImageView.frame = CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height)
-                contentView.addSubview(self.treeImageView)
+                self.plantImageView.frame = CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height)
+                contentView.addSubview(self.plantImageView)
             })
         
         popView.config.borderWidth = 0
@@ -76,8 +73,8 @@ class ViewController: UIViewController {
             sender: sender,
             barTitle: "Custom width and height",
             contentViewAdapter: { contentView in
-                self.treeImageView.frame = CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height)
-                contentView.addSubview(self.treeImageView)
+                self.plantImageView.frame = CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height)
+                contentView.addSubview(self.plantImageView)
             })
         
         popView.config.borderWidth = 0.0
@@ -200,7 +197,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
         cell.layer.cornerRadius = 5
         cell.layer.masksToBounds = true
         let imgView = UIImageView(frame: CGRect(x: 0, y: 0, width: cell.frame.width, height: cell.frame.height))
-        imgView.image = UIImage(named: "tree")
+        imgView.image = UIImage(named: "plant")
         cell.contentView.addSubview(imgView)
         return cell
     }
