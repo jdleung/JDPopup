@@ -33,62 +33,73 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_1" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JN0-lp-cHy">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kFy-Oe-W1e">
-                                <rect key="frame" x="98.5" y="205" width="60" height="25"/>
+                                <rect key="frame" x="50" y="211" width="120" height="38"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="25" id="awJ-FD-683"/>
-                                    <constraint firstAttribute="width" constant="60" id="k2d-3e-ODL"/>
+                                    <constraint firstAttribute="height" constant="38" id="awJ-FD-683"/>
+                                    <constraint firstAttribute="width" constant="120" id="k2d-3e-ODL"/>
                                 </constraints>
-                                <state key="normal" title="Show 1"/>
+                                <state key="normal" title="A"/>
                                 <connections>
                                     <action selector="showFullHeightPopView:" destination="gKX-4B-ufH" eventType="touchUpInside" id="r5T-KZ-jik"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hRR-5H-KQc">
-                                <rect key="frame" x="255.5" y="205" width="60" height="25"/>
+                                <rect key="frame" x="244" y="211" width="120" height="38"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="25" id="GhR-vy-6Kg"/>
-                                    <constraint firstAttribute="width" constant="60" id="wDr-ZE-1Ji"/>
+                                    <constraint firstAttribute="height" constant="38" id="GhR-vy-6Kg"/>
+                                    <constraint firstAttribute="width" constant="120" id="wDr-ZE-1Ji"/>
                                 </constraints>
-                                <state key="normal" title="Show 2"/>
+                                <state key="normal" title="B"/>
                                 <connections>
                                     <action selector="showLimitHeightPopView:" destination="gKX-4B-ufH" eventType="touchUpInside" id="bhg-Nu-gV9"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bOB-8r-ZnS">
-                                <rect key="frame" x="98.5" y="638" width="60" height="25"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="Wcc-r3-kEN"/>
-                                    <constraint firstAttribute="height" constant="25" id="ora-1a-0SL"/>
-                                </constraints>
-                                <state key="normal" title="Show 3"/>
-                                <connections>
-                                    <action selector="showPopupViewWithSegment:event:" destination="gKX-4B-ufH" eventType="touchUpInside" id="OGl-iO-hAP"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="orH-no-VsQ">
-                                <rect key="frame" x="255.5" y="638" width="60" height="25"/>
+                                <rect key="frame" x="244" y="701" width="120" height="38"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="Zo7-OK-oco"/>
-                                    <constraint firstAttribute="height" constant="25" id="kC1-A9-A0t"/>
+                                    <constraint firstAttribute="width" constant="120" id="Zo7-OK-oco"/>
+                                    <constraint firstAttribute="height" constant="38" id="kC1-A9-A0t"/>
                                 </constraints>
-                                <state key="normal" title="Show 4"/>
+                                <state key="normal" title="D"/>
                                 <connections>
                                     <action selector="showPopupCollectionView:" destination="gKX-4B-ufH" eventType="touchUpInside" id="dqi-Co-znZ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bOB-8r-ZnS">
+                                <rect key="frame" x="50" y="701" width="120" height="38"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="Wcc-r3-kEN"/>
+                                    <constraint firstAttribute="height" constant="38" id="ora-1a-0SL"/>
+                                </constraints>
+                                <state key="normal" title="C"/>
+                                <connections>
+                                    <action selector="showPopupViewWithSegment:event:" destination="gKX-4B-ufH" eventType="touchUpInside" id="OGl-iO-hAP"/>
                                 </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="1jH-rc-yyC"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="orH-no-VsQ" firstAttribute="centerX" secondItem="lMG-pK-XRh" secondAttribute="centerX" constant="78.5" id="48a-6h-ihu"/>
-                            <constraint firstItem="hRR-5H-KQc" firstAttribute="centerX" secondItem="lMG-pK-XRh" secondAttribute="centerX" constant="78.5" id="IaO-4H-b0Z"/>
-                            <constraint firstItem="1jH-rc-yyC" firstAttribute="bottom" secondItem="orH-no-VsQ" secondAttribute="bottom" constant="199" id="icE-Tp-tzr"/>
-                            <constraint firstItem="bOB-8r-ZnS" firstAttribute="centerX" secondItem="lMG-pK-XRh" secondAttribute="centerX" constant="-78.5" id="k4M-G8-f5Q"/>
-                            <constraint firstItem="kFy-Oe-W1e" firstAttribute="top" secondItem="1jH-rc-yyC" secondAttribute="top" constant="117" id="lcW-V6-sRZ"/>
-                            <constraint firstItem="1jH-rc-yyC" firstAttribute="bottom" secondItem="bOB-8r-ZnS" secondAttribute="bottom" constant="199" id="pMP-ED-C1x"/>
-                            <constraint firstItem="hRR-5H-KQc" firstAttribute="top" secondItem="1jH-rc-yyC" secondAttribute="top" constant="117" id="qeo-Rb-qYw"/>
-                            <constraint firstItem="kFy-Oe-W1e" firstAttribute="centerX" secondItem="lMG-pK-XRh" secondAttribute="centerX" constant="-78.5" id="waW-oS-euD"/>
+                            <constraint firstItem="bOB-8r-ZnS" firstAttribute="leading" secondItem="1jH-rc-yyC" secondAttribute="leading" constant="50" id="Cga-jP-Rpj"/>
+                            <constraint firstItem="JN0-lp-cHy" firstAttribute="leading" secondItem="1jH-rc-yyC" secondAttribute="leading" id="JRK-mU-Vzn"/>
+                            <constraint firstAttribute="bottom" secondItem="JN0-lp-cHy" secondAttribute="bottom" id="ahO-yb-Sd3"/>
+                            <constraint firstItem="JN0-lp-cHy" firstAttribute="top" secondItem="lMG-pK-XRh" secondAttribute="top" id="fo4-5q-3ux"/>
+                            <constraint firstItem="1jH-rc-yyC" firstAttribute="bottom" secondItem="orH-no-VsQ" secondAttribute="bottom" constant="123" id="icE-Tp-tzr"/>
+                            <constraint firstItem="1jH-rc-yyC" firstAttribute="trailing" secondItem="orH-no-VsQ" secondAttribute="trailing" constant="50" id="lLQ-Kb-tzD"/>
+                            <constraint firstItem="kFy-Oe-W1e" firstAttribute="top" secondItem="1jH-rc-yyC" secondAttribute="top" constant="123" id="lcW-V6-sRZ"/>
+                            <constraint firstItem="1jH-rc-yyC" firstAttribute="bottom" secondItem="bOB-8r-ZnS" secondAttribute="bottom" constant="123" id="pMP-ED-C1x"/>
+                            <constraint firstItem="hRR-5H-KQc" firstAttribute="top" secondItem="1jH-rc-yyC" secondAttribute="top" constant="123" id="qeo-Rb-qYw"/>
+                            <constraint firstItem="1jH-rc-yyC" firstAttribute="trailing" secondItem="hRR-5H-KQc" secondAttribute="trailing" constant="50" id="sjG-Ww-Npx"/>
+                            <constraint firstItem="kFy-Oe-W1e" firstAttribute="leading" secondItem="1jH-rc-yyC" secondAttribute="leading" constant="50" id="tQW-b5-meC"/>
+                            <constraint firstItem="JN0-lp-cHy" firstAttribute="trailing" secondItem="1jH-rc-yyC" secondAttribute="trailing" id="yXE-Gx-mYr"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="pq8-Do-peq">
@@ -101,10 +112,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4g2-m7-QfI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="667" y="94"/>
+            <point key="canvasLocation" x="666.66666666666674" y="93.75"/>
         </scene>
     </scenes>
     <resources>
+        <image name="bg_1" width="1122" height="1811"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

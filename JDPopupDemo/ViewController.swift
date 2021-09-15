@@ -33,7 +33,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         self.title = "JDPopup Demo"
-        self.view.backgroundColor = #colorLiteral(red: 0.9807812572, green: 0.9357372522, blue: 0.7789309025, alpha: 1)
                 
         sampleTextView.text = """
             Xcode 13 adds powerful new team development features, perfect for working with Xcode Cloud as well as with GitHub, Bitbucket, and GitLab collaboration features. Initiate, review, comment, and merge pull requests directly within Xcode. See your teammates’ comments right inside your code. And quickly compare any two versions of your code files.
@@ -82,8 +81,8 @@ class ViewController: UIViewController {
             })
         
         popView.config.borderWidth = 0.0
-        popView.config.customHeight = 300.0
         popView.config.customWidth = 300.0
+        popView.config.customHeight = 400.0
         popView.config.bgColor = .white
         self.present(popView, animated: false, completion: nil)
     }
@@ -96,7 +95,7 @@ class ViewController: UIViewController {
         seg.frame = CGRect(x: 15, y: 5, width: 200, height: 30)
         seg.addTarget(self, action: #selector(self.segmentChanged(_:)), for: .valueChanged)
         seg.selectedSegmentIndex = 0
-        seg.backgroundColor = UIColor.yellow.withAlphaComponent(0.6)
+        seg.backgroundColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
 
         jdPopView = JDPopup(
             event: event,
@@ -152,14 +151,14 @@ class ViewController: UIViewController {
 
         let popView = JDPopup(
             sender: sender,
-            barTitle: "CollectionView",
+            barTitle: "Custom Height",
             contentViewAdapter: { contentView in
                 cv.frame = CGRect(x: 20, y: 10, width: contentView.frame.width-40, height: contentView.frame.height-20)
                 contentView.addSubview(cv)
             })
         
         popView.config.customHeight = 330
-        popView.config.bgColor = #colorLiteral(red: 1, green: 0.4932718873, blue: 0.4739984274, alpha: 1)
+        popView.config.bgColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
         popView.config.barTitleColor = .white
         popView.config.exitBtnTintColor = .white
         self.present(popView, animated: false, completion: nil)

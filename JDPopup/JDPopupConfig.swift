@@ -19,7 +19,7 @@ public class JDPopupConfig: NSObject {
     
     public var contentBgColor: UIColor = .white
     
-    public var borderColor: UIColor = .lightGray
+    public var borderColor: UIColor = .darkGray
     
     public var borderWidth: CGFloat = 1.0
     
@@ -28,7 +28,7 @@ public class JDPopupConfig: NSObject {
     
     public var cornerRadius: CGFloat = 6.0
     
-    public var barTitleColor: UIColor = .darkGray
+    public var barTitleColor: UIColor = .black
     
     public var barHeight: CGFloat = 40.0
     
@@ -48,7 +48,7 @@ public class JDPopupConfig: NSObject {
     public var shadowColor: UIColor = .black
     
     /// mask layer background color alpha
-    public var shadowAlpha: CGFloat = 0.2
+    public var shadowAlpha: CGFloat = 0.4
     
     /// exit button
     public var exitBtnTintColor: UIColor = .lightGray
