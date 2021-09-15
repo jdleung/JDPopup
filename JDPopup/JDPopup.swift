@@ -65,9 +65,7 @@ public class JDPopup: UIViewController {
     convenience public init(sender: UIButton, barTitle: String = "", barViewAdapter: ViewAdapter? = nil, contentViewAdapter:  @escaping ViewAdapter) {
         
         self.init(nibName: nil, bundle: nil)
-                
-        let ap = CGPoint(x: sender.center.x - config.lrSpacing, y: sender.center.y)
-        self.setDefault(ap, barTitle: barTitle, barViewAdapter: barViewAdapter, contentViewAdapter: contentViewAdapter)
+        self.setDefault(sender.frame, barTitle: barTitle, barViewAdapter: barViewAdapter, contentViewAdapter: contentViewAdapter)
     }
     
     
@@ -75,34 +73,32 @@ public class JDPopup: UIViewController {
         
         self.init(nibName: nil, bundle: nil)
         
-        guard let sender = event.allTouches?.first?.view!, let superView = sender.superview else {
+        guard let sender = event.allTouches?.first?.view, let superView = sender.superview else {
             return
         }
         let senderRect = superView.convert(sender.frame, to: self.view)
-        
-        let ap = CGPoint(x: senderRect.origin.x + senderRect.width/2 - config.lrSpacing, y: senderRect.origin.y + senderRect.height/2)
-        self.setDefault(ap, barTitle: barTitle, barViewAdapter: barViewAdapter, contentViewAdapter: contentViewAdapter)
+        self.setDefault(senderRect, barTitle: barTitle, barViewAdapter: barViewAdapter, contentViewAdapter: contentViewAdapter)
     }
     
     
-    fileprivate func setDefault(_ ap: CGPoint, barTitle: String = "", barViewAdapter: ViewAdapter? = nil, contentViewAdapter: @escaping ViewAdapter) {
+    fileprivate func setDefault(_ senderFrame: CGRect, barTitle: String = "", barViewAdapter: ViewAdapter? = nil, contentViewAdapter: @escaping ViewAdapter) {
         
         self.view.backgroundColor = .clear
         self.modalPresentationCapturesStatusBarAppearance = true
         self.modalPresentationStyle = .overFullScreen
         self.modalTransitionStyle = .crossDissolve
         
-        self.arrowPoint = ap
         self.barTitle = barTitle
         self.barViewAdapter = barViewAdapter
         self.contentViewAdapter = contentViewAdapter
         self.isPortrait = UIApplication.shared.statusBarOrientation.isPortrait
+        self.arrowPoint = CGPoint(x: senderFrame.origin.x + senderFrame.width/2 - config.lrSpacing, y: senderFrame.origin.y + senderFrame.height/2)
         
         if self.arrowPoint!.y > UIScreen.main.bounds.height/2 {
-            self.arrowPoint!.y -= config.arrowHeight
+            self.arrowPoint!.y -= senderFrame.height/2
             self.arrowDirection = .down
         } else {
-            self.arrowPoint!.y += config.arrowHeight
+            self.arrowPoint!.y += senderFrame.height/2
             self.arrowDirection = .up
         }
         
@@ -246,7 +242,7 @@ public class JDPopup: UIViewController {
             bva(barView)
             
         } else {
-            let titleLabel = UILabel(frame: CGRect(x: 10, y: 5, width: barView.frame.width - 45, height: 30))
+            let titleLabel = UILabel(frame: CGRect(x: 10, y: config.barHeight/2 - 15, width: barView.frame.width - 45, height: 30))
             titleLabel.textColor = config.barTitleColor
             titleLabel.font = UIFont.systemFont(ofSize: 17)
             titleLabel.text = barTitle

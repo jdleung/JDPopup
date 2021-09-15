@@ -34,9 +34,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kFy-Oe-W1e">
-                                <rect key="frame" x="98.5" y="205" width="60" height="30"/>
+                                <rect key="frame" x="98.5" y="205" width="60" height="25"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="awJ-FD-683"/>
+                                    <constraint firstAttribute="height" constant="25" id="awJ-FD-683"/>
                                     <constraint firstAttribute="width" constant="60" id="k2d-3e-ODL"/>
                                 </constraints>
                                 <state key="normal" title="Show 1"/>
@@ -45,9 +45,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hRR-5H-KQc">
-                                <rect key="frame" x="255.5" y="205" width="60" height="30"/>
+                                <rect key="frame" x="255.5" y="205" width="60" height="25"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="GhR-vy-6Kg"/>
+                                    <constraint firstAttribute="height" constant="25" id="GhR-vy-6Kg"/>
                                     <constraint firstAttribute="width" constant="60" id="wDr-ZE-1Ji"/>
                                 </constraints>
                                 <state key="normal" title="Show 2"/>
@@ -56,10 +56,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bOB-8r-ZnS">
-                                <rect key="frame" x="98.5" y="633" width="60" height="30"/>
+                                <rect key="frame" x="98.5" y="638" width="60" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="Wcc-r3-kEN"/>
-                                    <constraint firstAttribute="height" constant="30" id="ora-1a-0SL"/>
+                                    <constraint firstAttribute="height" constant="25" id="ora-1a-0SL"/>
                                 </constraints>
                                 <state key="normal" title="Show 3"/>
                                 <connections>
@@ -67,10 +67,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="orH-no-VsQ">
-                                <rect key="frame" x="255.5" y="633" width="60" height="30"/>
+                                <rect key="frame" x="255.5" y="638" width="60" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="Zo7-OK-oco"/>
-                                    <constraint firstAttribute="height" constant="30" id="kC1-A9-A0t"/>
+                                    <constraint firstAttribute="height" constant="25" id="kC1-A9-A0t"/>
                                 </constraints>
                                 <state key="normal" title="Show 4"/>
                                 <connections>
