@@ -2,10 +2,10 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "JDPopup"
-  spec.version      = "0.0.3"
-  spec.summary      = "Showing your contents in a popup view"
+  spec.version      = "0.0.4"
+  spec.summary      = "JDPopup is a light weight popup container"
   spec.description  = <<-DESC
-  JDPopup is a popup container for iOS. It shows a popup view with an arrow that indicates the sender point. You can put any type of UIView into it, UILabel, UITableView, UICollecitonView, UITextView... etc. All you need to do is to put them into its API, JDPopup automatically determines showing up on the maximum available height, or you can custom the width and height.
+  JDPopup is a light weight popup container which shows a popup view with an arrow that indicates the sender's position.
                    DESC
 
   spec.homepage     = "https://github.com/jdleung/JDPopup"
